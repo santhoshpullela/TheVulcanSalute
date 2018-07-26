@@ -28,49 +28,69 @@
 
    
     <body>
-        
-       
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <center><h2>Life Expectancy Predictions using Linear Regression and LSTM Neural Networks</h2></center>
+            </div>   
+        </div>   
         <div class="container-fluid">             
-        
-            <center><h2>Life Expectancy Predictions using Linear Regression</h2></center>           
+            
+            <h4>Linear Regression model</h4>       
             <div class ='row'>              
-                <div class = 'col-md-6'>
+                <div class = 'col-md-5'>
                     <img src="../images/BMI_LifeExpect.png">                    
                 </div>
-                <div class = 'col-md-1'></div>
-                <div class = 'col-md-5'>
-                    <div class="panel panel-default">
-                            <div class="panel-heading">Life Expectancy and Body Mass Index</div>
-                            <div class="panel-body">
-                                <p>
-                                Healthy Life Expectancy is observed with BMI between 23 to 27 <br><br><br><br><br><br><br><br>
-                                Mean Squared Error : 0.00827203
-                                <br>  
-                                R2 Score : 0.986899 
-                                </p>
-                            </div>                    
-                    </div>
-                </div>
-            </div>
-            <div class ='row'>              
+                <div class= "col-md-2"></div>
+                <div class= "col-md-4">
+                        <ul><i>
+                           <li> Healthy Life Expectancy is observed around 23 to 27 (kg-m) with BMI and Year Linear Regression model</li>
+                           <li >Mean Squared Error : 0.00827203 </li>
+                           <li> R2 Value: 0.986899 </li>
+                           <li> Used YEAR_model (an Linear Regression Model) to predict the life expectancy of future years based on BMI and Adult Mortality factors </li>
+                           <li> Y-Intercept and Weights Coefficient for this model is : y = -464.42092776+0.2713566x </li> 
+                        </i></ul>
+                        <center><button type="button" class="btn btn-info">
+                                <a href="../predicted years.csv">
+                                        <span class="glyphicon glyphicon-download-alt"></span> Download predicted file(.csv)
+
+                                </a>
+                                
+                        </button></center>
+                </div>  
+            </div>  
+            <br>
+            <div class = "row">
                 <div class = 'col-md-8'>
-                        <img src="../images/Years_LE.png">                    
-                </div>
-                
-                <!-- <div class = 'col-md-4'>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Life Expectancy and Years</div>
-                            <div class="panel-body">
-                                <p>
-                                    
-                                    
-                                </p>
-                            </div>                    
+                    <img src="../images/Years_LE.png">                    
+                </div> 
+            </div>  
+            <br>
+            <!-- <div class ='row'>              
+                    <div class = 'col-md-5'>
+                        <img src="../images/BMI_LifeExpect.png">                    
                     </div>
-                </div> -->
-            </div>
-                
+                    <div class= "col-md-2"></div>
+                    <div class= "col-md-4">
+                            <ul><i>
+                               <li> Healthy Life Expectancy is observed around 23 to 27 (kg-m) with BMI and Year Linear Regression model</li>
+                               <li >Mean Squared Error : 0.00827203 </li>
+                               <li> R2 Value: 0.986899 </li>
+                               <li> Used YEAR_model (an Linear Regression Model) to predict the life expectancy of future years based on BMI and Adult Mortality factors </li>
+                               <li> Y-Intercept and Weights Coefficient for this model is : y = -464.42092776+0.2713566x </li> 
+                            </i></ul>
+                            <center><button type="button" class="btn btn-info">
+                                    <a href="../predicted years.csv">
+                                            <span class="glyphicon glyphicon-download-alt"></span> Download predicted file(.csv)
+    
+                                    </a>
+                                    
+                            </button></center>
+                    </div>  
+            </div>   -->
             
+                
+
+                
         </div>    
 
         
