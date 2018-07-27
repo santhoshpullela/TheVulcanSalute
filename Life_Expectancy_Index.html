@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Happiness Report</title>
+    <title>Male vs Female</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
     
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +17,7 @@
         }
         
         .hero-image {
-            background-image: url("NewImage.jpg");
+            background-image: url("images/terrace.jpg") ;
             height: 55%;
             background-position:center;
             background-repeat: no-repeat;
@@ -24,30 +25,30 @@
             position: relative;
         }
         
-        .hero-text {
-            text-align: top;
-            position: absolute;
-            top: 13%;
-            right: -20%;
-            transform: translate(-50%, -50%);
-            color: rgb(59, 18, 18);
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bolder;
-            font-stretch: expanded;
-        }
-        
+
+       
     </style>
     
 </head>
 <body>
-    
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+        <div class="navbar-header">
+        <a class="navbar-brand" href="index_lf.html">Vulcan Salute</a>
+        </div>
+        <ul class="nav navbar-nav">
+        <li class="active"><a href="index_lf.html">Home</a></li>
+        <li><a href="life_expectancy_index.html">Historical Male vs Female</a></li>
+        <li><a href="prediction.html">Life Expectancy Predictions</a></li>
+        <li><a href="index_worldmap.html">World Map</a></li>
+        <li><a href="calc.html">Financial Calculator</a></li>                   
+        </ul>
+        </div>
+        </nav>
+
     
     <div class="hero-image"></div>
-    <style>
-        body {
-            background-color: rgb(248, 233, 117);
-        }
-    </style>
+   
     
     <select id="selDataset" onchange="getDataCharts(this.value)">
         <option value="dataset0">Please select a bar chart</option>

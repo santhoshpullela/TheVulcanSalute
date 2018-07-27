@@ -27,7 +27,7 @@ function buildbarcharts(){
 
 
     marker: {
-      color: 'yellow'
+      color: '#1f77b4'
     }
   }];
 
@@ -72,7 +72,7 @@ function getDataCharts(dataset) {
       hoverinfo: 'none',
       opacity: 0.5,
       marker: {
-        color: 'skyblue'
+        color: '#1f77b4'
       }
     }];
     layout = {

@@ -22,9 +22,9 @@ function displayData(data, startYear, endYear) {
         "aaData": dataTable,
         "aoColumns": [
             { "sTitle": "Year" },
-            { "sTitle": "Start" },
-            { "sTitle": "Change" },
-            { "sTitle": "End" }
+            { "sTitle": "Starting Balance" },
+            { "sTitle": "Change in Balance" },
+            { "sTitle": "Ending Balance" }
         ]
     });
     $("#tab-graph").empty().append("<div id='outputGraph' style='width:100%;height:500px'></div>");
