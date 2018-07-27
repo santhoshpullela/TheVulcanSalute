@@ -87,36 +87,7 @@
                 </div>
             </div>
 
-            <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button id="play-button" class="btn btn-primary">Play</button>
-                            <button id="reset-button" class="btn btn-primary">Reset</button>
-                            <div id="slider-div">
-                                <label>Year: <span id="year">1800</span></label>
-                                <div id="date-slider"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <select id="continent-select" class="form-control">
-                                <option selected value="all">All</option>
-                                <option value="europe">Europe</option>
-                                <option value="asia">Asia</option>
-                                <option value="americas">Americas</option>
-                                <option value="africa">Africa</option>
-                            </select>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-	<div id="wrapper">	
+  	<div id="wrapper">	
    		<div id="map"></div>
 
 	</div>
@@ -126,6 +97,12 @@
 <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
 <script src="http://d3js.org/queue.v1.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
+<!-- External JS libraries -->
+
+
+
+
+
 <script>
   //globals
 var width, height, projection, path, graticule, svg, attributeArray = [], currentAttribute = 0, playing = false;

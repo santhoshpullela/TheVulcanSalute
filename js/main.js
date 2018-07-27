@@ -1,11 +1,7 @@
-/*
-*    main.js
-*    Mastering Data Visualization with D3.js
-*    6.7 - Adding a jQuery UI slider
-*/
+
 
 var margin = { left:80, right:20, top:50, bottom:100 };
-var height = 800 - margin.top - margin.bottom, 
+var height = 700 - margin.top - margin.bottom, 
     width = 1100 - margin.left - margin.right;
 
 var g = d3.select("#chart-area")
@@ -36,14 +32,15 @@ g.call(tip);
 var x = d3.scaleLog()
     .base(10)
     .range([0, width])
-    .domain([142, 150000]);
+    .domain([142, 150000])
+    ;
 var y = d3.scaleLinear()
     .range([height, 0])
     .domain([0, 90]);
 var area = d3.scaleLinear()
     .range([25*Math.PI, 1500*Math.PI])
     .domain([2000, 1400000000]);
-var continentColor = d3.scaleOrdinal(d3.schemePastel1);
+var continentColor = d3.scaleOrdinal(d3.schemeAccent);
 
 // Labels
 var xLabel = g.append("text")
@@ -51,7 +48,9 @@ var xLabel = g.append("text")
     .attr("x", width / 2)
     .attr("font-size", "30px")
     .attr("text-anchor", "middle")
-    .text("GDP Per Capita ($)");
+    .attr("fill","white")
+    .text("GDP Per Capita ($)");    
+    
 var yLabel = g.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", -40)
@@ -59,12 +58,14 @@ var yLabel = g.append("text")
     .attr("font-size", "30px")
     .attr("text-anchor", "middle")
     .text("Life Expectancy (Years)")
+    .attr("fill","white");
 var timeLabel = g.append("text")
     .attr("y", height -10)
     .attr("x", width - 40)
-    .attr("font-size", "40px")
-    .attr("opacity", "0.4")
+    .attr("font-size", "30px")
+    .attr("opacity", "1")
     .attr("text-anchor", "middle")
+    .attr("fill","white")
     .text("1800");
 
 // X Axis
@@ -72,6 +73,7 @@ var xAxisCall = d3.axisBottom(x)
     .tickValues([400, 4000, 40000])
     .tickFormat(d3.format("$"));
 g.append("g")
+    .style("stroke","white")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height +")")
     .call(xAxisCall);
@@ -81,7 +83,9 @@ var yAxisCall = d3.axisLeft(y)
     .tickFormat(function(d){ return +d; });
 g.append("g")
     .attr("class", "y axis")
-    .call(yAxisCall);
+    .attr("font-size", "30px")
+    .style("stroke","white")
+     .call(yAxisCall);
 
 var continents = ["europe", "asia", "americas", "africa"];
 
@@ -94,8 +98,8 @@ continents.forEach(function(continent, i){
         .attr("transform", "translate(0, " + (i * 20) + ")");
 
     legendRow.append("rect")
-        .attr("width", 10)
-        .attr("height", 10)
+        .attr("width", 15)
+        .attr("height", 15)
         .attr("fill", continentColor(continent));
 
     legendRow.append("text")
@@ -103,6 +107,7 @@ continents.forEach(function(continent, i){
         .attr("y", 10)
         .attr("text-anchor", "end")
         .style("text-transform", "capitalize")
+        .attr("fill","white")
         .text(continent);
 });
 

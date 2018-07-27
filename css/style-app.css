@@ -147,6 +147,9 @@ select {
 }
 .bnr-one{
 	margin-top:3.3%;
+	color: #ffffff;
+	text-align: left;
+	font-weight: bold;
 }
 .bnr-one:nth-child(1){
 	margin-top:0;
@@ -189,6 +192,9 @@ input#timepicker {
 	-webkit-transition:all 0.5s ease-in-out;
 	-moz-transition:all 0.5s ease-in-out;
 	-o-transition:all 0.5s ease-in-out;
+}
+.btn btn-primary btn-lg btn-block{
+	color:#fdbb30;
 }
 /*-- AgileITS --*/
 .bnr-btn input[type=submit]:hover{

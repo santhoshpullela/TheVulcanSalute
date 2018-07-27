@@ -1,0 +1,12 @@
+.jumbotron {
+    text-align: center;
+    background-color: rgba(3, 48, 100, 0.411);
+    min-height: 75px;
+}
+
+h1 {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+body{background-color: antiquewhite}

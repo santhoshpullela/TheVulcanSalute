@@ -20,6 +20,121 @@
 <!-- /js files -->		
 </head>
 <body>
+		<script language="javascript">
+				function displayData(data, startYear, endYear) {
+					"use strict";
+					var year,
+						dataTable = [],
+						dataGraph = [];
+					for (year = startYear; year <= endYear; year += 1) {
+						dataTable[year - startYear] = [
+							year,
+							data[year].start.toFixed(2),
+							data[year].change.toFixed(2),
+							data[year].end.toFixed(2)
+						];
+						dataGraph[year] = [
+							year,
+							data[year].start
+						];
+					}
+					$("#tab-table").empty().append("<table id='outputTable'/>");
+					$("#outputTable").dataTable({
+						"aaData": dataTable,
+						"aoColumns": [
+							{ "sTitle": "Year" },
+							{ "sTitle": "Start" },
+							{ "sTitle": "Change" },
+							{ "sTitle": "End" }
+						]
+					});
+					$("#tab-graph").empty().append("<div id='outputGraph' style='width:100%;height:500px'></div>");
+					// we have to select the graph tab because canvas has to be shown to draw on it
+					// TODO: get the tab based on name
+					//$("#tabs").tabs("select", 2);
+					$.plot("#outputGraph", [ dataGraph ]);
+				}
+				function computeRetirement(data, yearCurrent, yearRetirement, yearDeath, rate_inflation, rate_capital, cost_retirement, cost_death) {
+					"use strict";
+					var year;
+					for (year = yearDeath; year >= yearRetirement; year -= 1) {
+						var total_inflation_growth = Math.pow(1.0 + rate_inflation, year - yearCurrent),
+							yearSpending = cost_retirement * total_inflation_growth,
+							endOfYear = year === yearDeath ? cost_death * total_inflation_growth : data[year + 1].start / (1.0 + rate_capital),
+							startOfYear = endOfYear + yearSpending;
+						data[year] = {
+							change: -yearSpending,
+							end: endOfYear,
+							start: startOfYear
+						};
+					}
+					return data;
+				}
+				function computeWork(data, yearCurrent, yearRetirement, rate_salary, rate_capital, salary, salary_contribution) {
+					"use strict";
+					var year;
+					for (year = yearRetirement - 1; year >= yearCurrent; year -= 1) {
+						var total_salary_growth = Math.pow(1.0 + rate_salary, year - yearCurrent),
+							contribution = salary * total_salary_growth * salary_contribution,
+							endOfYear = data[year + 1].start / (1.0 + rate_capital),
+							startOfYear = endOfYear - contribution;
+						data[year] = {
+							change: contribution,
+							end: endOfYear,
+							start: startOfYear
+						};
+					}
+					return data;
+				}
+				$(document).ready(function () {
+					"use strict";
+					
+					// TODO: not available in this version of jquery ui
+					//$("#tabs").tabs( { heightStyle: "auto" });
+					jQuery.validator.addMethod("integer", function (value, element) {
+						return this.optional(element) || /^[0-9]+$/.test(value);
+					}, "Please specify an integer value.");
+					$("#processForm").validate({
+						submitHandler: function (form) {
+							var ageCurrent = parseInt($("#age_current").val(), 10),
+								ageRetirement = parseInt($("#age_retirement").val(), 10),
+								ageDeath = parseInt($("#age_death").val(), 10),
+								cost_retirement = parseFloat($("#cost_retirement_month").val(), 10) * 12.0,
+								cost_death = parseFloat($("#cost_death").val(), 10),
+								rate_inflation = parseFloat($("#rate_inflation").val(), 10) / 100.0,
+								rate_capital = parseFloat($("#rate_capital").val(), 10) / 100.0,
+								salary = parseFloat($("#salary").val(), 10),
+								rate_salary = parseFloat($("#rate_salary").val(), 10) / 100.0,
+								salary_contribution = parseFloat($("#rate_contribution").val(), 10) / 100.0,
+								// compute years
+								yearCurrent = new Date().getFullYear(),
+								yearRetirement = yearCurrent + (ageRetirement - ageCurrent),
+								yearDeath = yearCurrent + (ageDeath - ageCurrent),
+								data = [];
+							data = computeRetirement(
+								data,
+								yearCurrent,
+								yearRetirement,
+								yearDeath,
+								rate_inflation,
+								rate_capital,
+								cost_retirement,
+								cost_death
+							);
+							data = computeWork(
+								data,
+								yearCurrent,
+								yearRetirement,
+								rate_salary,
+								rate_capital,
+								salary,
+								salary_contribution
+							);
+							displayData(data, yearCurrent, yearDeath);
+						}
+					});
+				});
+			</script>
 	<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -37,77 +152,103 @@
 	<h1>Will You Ever Retire?</h1>
 </div>
 
-        <div class="banner-top">
-				<h2>Retirement Calculator</h2>
-				<div class="banner-bottom">
-						<div class="bnr-one">
-								<div class="bnr-left">
-									<p>Current Annual Income</p>
-								</div>
-								<div class="bnr-right time-pic">
-									<input type="text" placeholder="What is your current annual income?" ><br>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-					<div class="bnr-one">
-						<div class="bnr-left" >
-							<p>Home Owner</p>
-						</div>
-						<div class="bnr-right">
-							<select>
-								<option value="text">Will you own your property by the time you retire?</option>
-								<option value="saab">Yes</option>
-								<option value="saab">No</option>
-							</select>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="bnr-one">
-						<div class="bnr-left">
-							<p>Rent or Mortgage Payment</p>
-						</div>
-						<div class="bnr-right time-pic">
-							<input type="text" placeholder="Enter your Rent or Mortgage Payment" ><br>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="bnr-one">
-							<div class="bnr-left">
-								<p>Combined Monthly Bills</p>
-							</div>
-							<div class="bnr-right time-pic">
-								<input type="text" placeholder="Total excluding Rent or Mortgage (i.e Electric, Gas, Water, Cable, etc)" ><br>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="bnr-one">
-								<div class="bnr-left">
-									<p>Retirement Age</p>
-								</div>
-								<div class="bnr-right time-pic">
-									<input type="text" placeholder="What age are you planning to retire?" ><br>
-								</div>
-								<div class="clearfix"></div>
-							</div>
-							<div class="bnr-one">
-									<div class="bnr-left">
-										<p>Current Retirement Savings</p>
-									</div>
-									<div class="bnr-right time-pic">
-										<input type="text" placeholder="How much do you currently have saved for retirement?" ><br>
-									</div>
-									<div class="clearfix"></div>
-								</div>
-
-					</div>
-					<div class="bnr-btn">
-						<form>
-							<input type="submit" value="Submit">
-						</form>
-					</div>
-				</div>
-				<!---start-date-piker---->
-		<link rel="stylesheet" href="css/jquery-ui.css" />
+<div class="banner-top">
+<h2>Retirement Calculator</h2>
+<div class="banner-bottom">
+<div class="bnr-one">
+<div class="bnr-left">
+<p>Current Age</p>
+</div>
+<div class="bnr-right time-pic">
+<input type="text" name="age_current" id="age_current" placeholder="37" class="required number integer"/><br>
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="bnr-one">
+<div class="bnr-left" >
+<p>Retirement Age</p>
+</div>
+<div class="bnr-right">
+<input type="text" name="age_retirement" id="age_retirement" placeholder="63" class="required number integer"/><br>
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="bnr-one">
+<div class="bnr-left">
+<p>Spending per month during retirement (today's money):</p>
+</div>
+<div class="bnr-right time-pic">
+<input type="text" name="cost_retirement_month" id="cost_retirement_month" value="4000.00" class="required number"/><br>
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="bnr-one">
+<div class="bnr-left">
+<p>left at death (today's Money)</p>
+</div>
+<div class="bnr-right time-pic">
+<input type="text" name="cost_death" id="cost_death" value="20000.00" class="required number"/><br>
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="bnr-one">
+<div class="bnr-left">
+<p>Inflation Rate %</p>
+</div>
+<div class="bnr-right time-pic">
+<input type="text" name="rate_inflation" id="rate_inflation" value="4.4" class="requird number"/><br>
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="bnr-one">
+<div class="bnr-left">
+<p>Capital Growth Rate %</p>
+</div>
+<div class="bnr-right time-pic">
+<input type="text" name="rate_capital" id="rate_capital" value="6.8" class="required number"/><br>
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="bnr-one">
+<div class="bnr-left">
+<p>Salary</p>
+</div>
+<div class="bnr-right time-pic">
+<input type="text" name="salary" id="salary" value="50000" class="required number"/><br>
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="bnr-one">
+<div class="bnr-left">
+<p>Salary Growth Rate %</p>
+</div>
+<div class="bnr-right time-pic">
+<input type="text" name="rate_salary" id="rate_salary" value="4.4" class="required number"/><br>
+</div>
+<div class="clearfix"></div>
+</div>
+<div class="bnr-one">
+<div class="bnr-left">
+<p>Contribution %</p>
+</div>
+<div class="bnr-right time-pic">
+<input type="text" name="rate_contribution" id="rate_contribution" value="6.8" class="required number"/><br>
+</div>
+<div class="clearfix"></div>
+</div>
+</div>
+<div class="bnr-btn">
+<form>
+<input type="submit" value="Submit">
+</form>
+<div id="tab-table">
+</div>
+<div id="tab-graph">
+</div>
+</div>
+</div>
+<!---start-date-piker---->
+<link rel="stylesheet" href="css/jquery-ui.css" />
 
 	<!---/End-date-piker---->
 </div>

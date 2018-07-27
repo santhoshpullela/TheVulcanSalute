@@ -217,8 +217,15 @@ input#timepicker {
 }
 
 /*--responsive-starts-here--*/
-
-
+label{
+	color: #fff;
+}
+#continent-select{
+	width: 150px;
+}
+#play-buttonbtn btn-primary {
+	padding-bottom: 100px;
+}
 @media (max-width:1680px){
 .ui-datepicker {
     width: 18.1%;
