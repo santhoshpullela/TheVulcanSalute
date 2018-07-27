@@ -9,4 +9,9 @@ h1 {
     font-weight: bold;
 }
 
-body{background-color: antiquewhite}
+body{background-color: antiquewhite }
+
+.custom-select {
+    position: absolute;
+    font-family: Arial;
+}

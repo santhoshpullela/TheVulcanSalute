@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
-            body{background-color: aqua}
+            body{background-color: black}
         </style>                  
         <title>TheVulcanSalute</title>
 
@@ -28,7 +28,7 @@
 
    
     <body>
-        <div class="panel panel-warning">
+        <div class="panel panel-primary class">
             <div class="panel-heading">
                 <center><h2>Life Expectancy Predictions using Linear Regression and LSTM Neural Networks</h2></center>
             </div>   
@@ -46,12 +46,13 @@
                            <li> Healthy Life Expectancy is observed around 23 to 27 (kg-m) with BMI and Year Linear Regression model</li>
                            <li >Mean Squared Error : 0.00827203 </li>
                            <li> R2 Value: 0.986899 </li>
-                           <li> Used YEAR_model (an Linear Regression Model) to predict the life expectancy of future years based on BMI and Adult Mortality factors </li>
+                           <li> Used Linear Regression Model to predict the life expectancy based on BMI and Adult Mortality factors </li>
                            <li> Y-Intercept and Weights Coefficient for this model is : y = -464.42092776+0.2713566x </li> 
                         </i></ul>
+                        <br>
                         <center><button type="button" class="btn btn-info">
                                 <a href="../predicted years.csv">
-                                        <span class="glyphicon glyphicon-download-alt"></span> Download predicted file(.csv)
+                                        <span class="glyphicon glyphicon-download-alt"></span> Download Predictions
 
                                 </a>
                                 
@@ -60,34 +61,54 @@
             </div>  
             <br>
             <div class = "row">
-                <div class = 'col-md-8'>
-                    <img src="../images/Years_LE.png">                    
+                <div class = 'col-md-6'>
+                    <div class="custom-select" style="width:200px;">
+                        
+                        <select id="ImageList">
+                            <option value="../images/BasicLifeExpect.png">Life Expectancy vs Year</option>
+                            <option value="../images/LE_Prediction2050.png">Life Expectancy 2050</option>
+                            <option value="../images/LE_Prediction2100.png">Life Expectancy 2100</option>
+                            <option value="../images/LE_Prediction2500.png">Life Expectancy 2500</option>    
+                        </select>  
+                        
+                        <img id="image" src="../images/BasicLifeExpect.png"/>
+                        
+                        <script src='../static/predictions.js'>  </script>                          
+                    </div>                  
+                </div> 
+                <div class = 'col-md-1'></div>
+                <div class = 'col-md-5'>
+                    <img src="../images/correlationplot.png">                    
                 </div> 
             </div>  
             <br>
-            <!-- <div class ='row'>              
+            <h4>LSTM Neural Network model</h4>
+            <div class ='row'>              
                     <div class = 'col-md-5'>
-                        <img src="../images/BMI_LifeExpect.png">                    
+                        <img src="../images/MultivariateLR.png">                    
                     </div>
-                    <div class= "col-md-2"></div>
+                    <div class= "col-md-2"></div>   
                     <div class= "col-md-4">
-                            <ul><i>
-                               <li> Healthy Life Expectancy is observed around 23 to 27 (kg-m) with BMI and Year Linear Regression model</li>
-                               <li >Mean Squared Error : 0.00827203 </li>
-                               <li> R2 Value: 0.986899 </li>
-                               <li> Used YEAR_model (an Linear Regression Model) to predict the life expectancy of future years based on BMI and Adult Mortality factors </li>
-                               <li> Y-Intercept and Weights Coefficient for this model is : y = -464.42092776+0.2713566x </li> 
+                            <ul><i>                             
+                               <li >Mean Squared Error : 10.863 </li>
+                               <li> Root Mean Square Value: 3.296 </li>                                 
                             </i></ul>
-                            <center><button type="button" class="btn btn-info">
-                                    <a href="../predicted years.csv">
-                                            <span class="glyphicon glyphicon-download-alt"></span> Download predicted file(.csv)
-    
-                                    </a>
-                                    
-                            </button></center>
-                    </div>  
-            </div>   -->
-            
+                    </div> 
+            </div> 
+            <br> 
+            <div class ='row'>              
+                <div class = 'col-md-5'>
+                    <img src="../images/LSTM.png">                    
+                </div>
+                <div class= "col-md-2"></div>
+                <div class= "col-md-4">
+                        <ul><i>                             
+                           <li >Mean Squared Error : 10.863 </li>
+                           <li> Root Mean Square Value: 3.296 </li>                                 
+                        </i></ul>
+                </div> 
+        </div>  
+        
                 
 
                 
