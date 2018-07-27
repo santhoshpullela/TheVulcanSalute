@@ -156,7 +156,7 @@ function loadData() {
 
   queue()   // queue function loads all external data files asynchronously 
     .defer(d3.json, "data/world-topo.json")  // our geometries
-    .defer(d3.csv, "data/countriesRandom.csv")  // and associated data in csv file
+    .defer(d3.csv, "data/worldmap3.csv")  // and associated data in csv file
     .await(processData);   // once all files are loaded, call the processData function passing
                            // the loaded objects as arguments
 }
@@ -205,7 +205,7 @@ function sequenceMap() {
   
     var dataRange = getDataRange(); // get the min/max values from the current year's range of data values
     d3.selectAll('.country').transition()  //select all the countries and prepare for a transition to new values
-      .duration(750)  // give it a smooth time period for the transition
+      .duration(50)  // give it a smooth time period for the transition
       .attr('fill-opacity', function(d) {
         return getColor(d.properties[attributeArray[currentAttribute]], dataRange);  // the end color value
       })
@@ -216,7 +216,7 @@ function getColor(valueIn, valuesIn) {
 
   var color = d3.scale.linear() // create a linear scale
     .domain([valuesIn[0],valuesIn[1]])  // input uses min and max values
-    .range([.3,6]);   // output for opacity between .3 and 1 %
+    .range([.2,6]);   // output for opacity between .3 and 1 %
 
   return color(valueIn);  // return that number to the caller
 }
